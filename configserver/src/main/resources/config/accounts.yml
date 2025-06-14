@@ -1,0 +1,13 @@
+
+build:
+  version: "3.0"
+
+
+accounts:
+ message: "Welcome to NanaBank accounts related local APIs"
+ contactDetails:
+  name: "Kyeyune Jonathan"
+  email: "kyeyunejonathan001@gmail.com"
+ onCallSupport:
+  -(555)555-1234
+  -(555)523-1345

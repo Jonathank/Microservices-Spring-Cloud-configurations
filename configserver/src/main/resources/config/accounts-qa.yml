@@ -1,0 +1,13 @@
+
+build:
+  version: "2.0"
+
+
+accounts:
+ message: "Welcome to NanaBank accounts related QA APIs"
+ contactDetails:
+  name: "Kyeyune Jonathan-QA lead"
+  email: "kyeyunejonathan001@gmail.com"
+ onCallSupport:
+  -(111)505-1034
+  -(111)503-1045

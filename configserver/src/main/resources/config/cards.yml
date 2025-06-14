@@ -1,0 +1,12 @@
+
+build:
+   version: "3.0"
+
+cards:
+ message: "Welcome to NanaBank cards related local APIs"
+ contactDetails:
+  name: "Kyeyune Jonathan"
+  email: "kyeyunejonathan001@gmail.com"
+ onCallSuppoert:
+  - (555)555-0000
+  - (555)555-0001

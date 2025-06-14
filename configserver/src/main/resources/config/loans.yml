@@ -1,0 +1,12 @@
+
+build:
+  version: "3.0"
+
+loans:
+  messages: "Welcome to NanaBank loans related APIs"
+  contactDetails:
+    name: "Kyeyune Jonathan"
+    email: "kyeyunejonathan001@gmail.com"
+  onCallSupport:
+    - (233)333-2020
+    - (233)333-2020

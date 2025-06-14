@@ -1,0 +1,12 @@
+
+build:
+  version: "1.0"
+
+cards:
+ message: "Welcome to NanaBank cards related prod APIs"
+ contactDetails:
+  name: "Kyeyune Jonathan -Product Owner"
+  email: "kyeyunejonathan001@gmail.com"
+ onCallSuppoert:
+    - (555)555-0222
+    - (555)555-0202

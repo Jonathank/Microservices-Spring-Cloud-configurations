@@ -1,0 +1,13 @@
+
+build:
+  version: "1.0"
+
+
+accounts:
+ message: "Welcome to NanaBank accounts related prod APIs"
+ contactDetails:
+  name: "Kyeyune Jonathan-QA product Owner"
+  email: "kyeyunejonathan001@gmail.com"
+ onCallSupport:
+  -(100)505-1034
+  -(100)503-1045
