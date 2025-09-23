@@ -14,7 +14,7 @@ import app.nanaBank.dto.LoansDTO;
 /**
  *@author JONATHAN 
  */
-@FeignClient("loans")
+@FeignClient(name="loans",fallback = LoanFallBack.class)
 public interface LoansFeignClient {
 
     @GetMapping("/api/loans/fetch/LoanDetails")

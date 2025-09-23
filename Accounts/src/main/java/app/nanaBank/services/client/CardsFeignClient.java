@@ -14,7 +14,7 @@ import app.nanaBank.dto.CardsDTO;
 /**
  *@author JONATHAN 
  */
-@FeignClient("cards")
+@FeignClient(name="cards", fallback = CardsFallBack.class)
 public interface CardsFeignClient {
 
     @GetMapping(value ="/api/cards/fetch", consumes ="application/json")
