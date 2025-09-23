@@ -4,6 +4,7 @@
 package app.nanaBank.mapper;
 
 import app.nanaBank.dto.CustomerDTO;
+import app.nanaBank.dto.CustomerDetailsDTO;
 import app.nanaBank.model.Customer;
 
 /**
@@ -38,5 +39,20 @@ public class CustomerMapper {
 	customer.setPhoneNumber(customerDTO.getPhoneNumber());
 	
 	return customer;
+    }
+    
+    public static CustomerDetailsDTO mapToCustomerDetailsDTO(Customer customer, CustomerDetailsDTO customerDetailsDTO) {
+	if (customer == null) {
+	    return null;
+	}
+	if (customerDetailsDTO == null) {
+	    customerDetailsDTO = new CustomerDetailsDTO();
+	}
+	
+	customerDetailsDTO.setName(customer.getName());
+	customerDetailsDTO.setEmail(customer.getEmail());
+	customerDetailsDTO.setPhoneNumber(customer.getPhoneNumber());
+	
+	return customerDetailsDTO;
     }
 }

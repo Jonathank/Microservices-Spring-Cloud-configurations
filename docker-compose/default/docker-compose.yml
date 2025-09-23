@@ -1,29 +1,10 @@
 services:
- rabbit:
-  image: rabbitmq:4-management
-  hostname: rabbitmq
-  ports:
-    - "5672:5672"
-    - "15672:15672"
-  healthcheck:
-    test: rabbitmq-diagnostics check_port_connectivity
-    interval: 10s
-    timeout: 5s
-    retries: 10
-    start_period: 10s
-  extends:
-   file: common-config.yml
-   service: network-deploy-service
-
+ 
  configserver:
-    image: "thanjk/configserver:nb3"
+    image: "thanjk/configserver:nb5"
     container_name: configserver-ms
     ports:
       - 8071:8071
-
-    depends_on:
-      rabbit:
-        condition: service_healthy
 
     healthcheck:
      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
@@ -36,40 +17,100 @@ services:
        file: common-config.yml
        service: microservice-base-config
 
+
+ eurekaserver:
+  image: "thanjk/eurekaserver:nb5"
+  container_name: configserver-ms
+  ports:
+   - 8070:8070
+  environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
+
+  healthcheck:
+   test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+   interval: 10s
+   timeout: 5s
+   retries: 10
+   start_period: 10s
+  extends:
+   file: common-config.yml
+   service: microservice-configserver-config
+  
+
  accounts:
-    image: "thanjk/accounts:nb3"
+    image: "thanjk/accounts:nb5"
     container_name: accounts-ms
     ports:
        - 9090:9090
+    healthcheck:
+     test: "curl --fail --silent localhost:9090/actuator/health/readiness | grep UP || exit 1"
+     interval: 10s
+     timeout: 5s
+     retries: 10
+     start_period: 10s
+
     environment:
      SPRING_APPLICATION_NAME: "accounts"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 
 
  loans:
-    image: "thanjk/loans:nb3"
+    image: "thanjk/loans:nb5"
     container_name: loans-ms
     ports:
       - 9091:9091
+    healthcheck:
+     test: "curl --fail --silent localhost:9091/actuator/health/readiness | grep UP || exit 1"
+     interval: 10s
+     timeout: 5s
+     retries: 10
+     start_period: 10s
+
     environment:
      SPRING_APPLICATION_NAME: "loans"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
 
 
  cards:
-    image: "thanjk/cards:nb3"
+    image: "thanjk/cards:nb5"
     container_name: cards-ms
     ports:
        - 9092:9092
+    healthcheck:
+     test: "curl --fail --silent localhost:9092/actuator/health/readiness | grep UP || exit 1"
+     interval: 10s
+     timeout: 5s
+     retries: 10
+     start_period: 10s
+
     environment:
      SPRING_APPLICATION_NAME: "cards"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eurekaserver-config
+
+ gatewayserver:
+  image: "thanjk/gatewayserver:nb5"
+  container_name: gatewayserver-ms
+  ports:
+   - 8072:80722
+  depends_on:
+    accounts: 
+      condition: service_healthy
+    loans:
+      condition: service_healthy
+    cards:
+      condition: service_healthy
+  environment:
+   SPRING_APPLICATION_NAME: "gatewayserver"
+  extends:
+   file: common-config.yml
+   service: microservice-eurekaserver-config
+
 
 networks:
    nanaBank:

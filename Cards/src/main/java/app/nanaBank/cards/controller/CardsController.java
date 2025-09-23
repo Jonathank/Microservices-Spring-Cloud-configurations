@@ -1,5 +1,7 @@
 package app.nanaBank.cards.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -10,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +52,9 @@ public class CardsController {
     
     private final ICardsService cardsService;
     
+    
+    private static final Logger logger = LoggerFactory.getLogger(CardsController.class);
+
     public CardsController(ICardsService cardsService) {
 	this.cardsService = cardsService;
     }
@@ -106,12 +112,14 @@ public class CardsController {
                schema = @Schema(implementation = ErrorResponseDTO.class ))
 	  )
 	        })
-    @PostMapping("/fetch")
+    @GetMapping("/fetch")
     public ResponseEntity<CardsDTO> fetchCardDetails(
+    		@RequestHeader("nanabank-correlation-id")String correlationId,
 	    @Valid@RequestParam
 	  @Pattern(regexp = "^[0-9]{10}$", message = "Mobile number must be 10 digits")
 	  String mobileNumber
 	    ) {
+    	logger.debug("nanaBank-correlation-id found :  {}", correlationId);
 	CardsDTO fetchedCardDetails = cardsService.fetchCardDetails(mobileNumber);
 	return ResponseEntity.status(HttpStatus.OK).body(fetchedCardDetails);
     }

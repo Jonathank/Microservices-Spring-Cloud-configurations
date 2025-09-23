@@ -39,7 +39,7 @@ import jakarta.validation.constraints.Pattern;
  * 
  */
 @Tag(
-	name = "	CRUD REST APIs for Account Management in NANA Bank", 
+	name = "CRUD REST APIs for Account Management in NANA Bank", 
 	description = "APIs for managing customer accounts in NANA Bank, "
 		+ "including creation, retrieval, updating, and deletion of accounts."
 )

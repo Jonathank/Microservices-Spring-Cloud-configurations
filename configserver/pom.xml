@@ -45,15 +45,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-monitor</artifactId>
-		</dependency>
+		</dependency>-->
 	</dependencies>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -78,7 +79,7 @@
 				<version>3.4.5</version>
 				<configuration>
 					<to>
-						<image>thanjk/${project.artifactId}:nb3</image>
+						<image>thanjk/${project.artifactId}:nb5</image>
 					</to>
 				</configuration>
 			</plugin>

@@ -1,15 +1,12 @@
+
 spring:
  application:
   name: "configserver"
  profiles:
-    #active: native
     active: git
  cloud:
   config:
    server:
-    #native:
-     #search-locations: "classpath:/config"  # loads configs from with in config server
-     #search-locations: "file:///C://Users//JONATHAN//Documents//NanaBank//config"
     git:
      uri: "https://github.com/Jonathank/NanaBank-Microservices-Config.git"
      default-label: master
@@ -17,11 +14,11 @@ spring:
      clone-on-start: true
      force-pull: true
 
- rabbitmq:
-  host: "localhost"
-  port: 5672
-  username: "guest"
-  password: "guest"
+# rabbitmq:
+#  host: "localhost"
+#  port: 5672
+#  username: "guest"
+#  password: "guest"
 
 management:
  endpoints:

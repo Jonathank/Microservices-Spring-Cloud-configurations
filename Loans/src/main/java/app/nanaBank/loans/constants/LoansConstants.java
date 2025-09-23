@@ -33,7 +33,7 @@ public class LoansConstants {
     public static final String STATUS_CODE_NOT_FOUND = "404";
     public static final String Message_404 = "Resource not found";
     public static final String STATUS_CODE_CREATED = "201";
-    public static final String Message_201 = "Account created successfully";
+    public static final String Message_201 = "Loan created successfully";
     public static final String STATUS_CODE_FAILURE = "500";
     public static final String Message_500 = "An error occurred.please try again or contact dev team";
     private LoansConstants() {
