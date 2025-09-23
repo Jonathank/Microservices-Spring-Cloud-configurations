@@ -52,11 +52,16 @@ public class CustomerService implements ICustomerService{
 		customerDetailsDTO.setAccountsDetails(AccountsMapper.mapToAccountsDTO(account, new AccountsDTO()));
 		
 		ResponseEntity<LoansDTO> loansDetailsEntity = loansFeignClient.fetchLoanDetails(correlationId,phoneNumber);
-		customerDetailsDTO.setLoansDetails(loansDetailsEntity.getBody());
+		
+		if(null != loansDetailsEntity) {
+			customerDetailsDTO.setLoansDetails(loansDetailsEntity.getBody());
+		}
 		
 		ResponseEntity<CardsDTO> cardsDetailsEntity = cardsFeignClient.fetchCardDetails(correlationId,phoneNumber);
+		if(null != cardsDetailsEntity) {
 		customerDetailsDTO.setCardsDetails(cardsDetailsEntity.getBody());
-	
+		}
+		
 		return customerDetailsDTO;
     }
 
