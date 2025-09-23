@@ -1,5 +1,6 @@
 package com.nanaBank.gatewayserver;
 
+import java.io.ObjectInputFilter.Config;
 import java.time.LocalDateTime;
 
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,9 @@ public class GatewayserverApplication {
 		return routeLocatorBuilder.routes()
 				.route(p -> p.path("/nanabank/accounts/**")
 						.filters(f -> f.rewritePath("/nanabank/accounts/(?<segment>.*)","/${segment}")
-								.addResponseHeader("X-Response-Time",LocalDateTime.now().toString()))
+								.addResponseHeader("X-Response-Time",LocalDateTime.now().toString())
+								.circuitBreaker(Config -> Config.setName("accountsCircuitBreaker")
+										.setFallbackUri("forward:/contactSupport")))
 						.uri("lb://ACCOUNTS"))
 				
 				.route(p -> p.path("/nanabank/loans/**")
