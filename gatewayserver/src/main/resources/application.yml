@@ -14,7 +14,11 @@ spring:
         locator:
           enabled: false
           lowerCaseServiceId: true
-  
+#configurations for request connection and response timeout #Globa
+     httpclient:
+      connect-timeout: 1000
+      response-timeout: 2s
+
 management:
  endpoints:
   web:
