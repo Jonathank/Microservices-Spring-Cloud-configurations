@@ -1,6 +1,8 @@
  package com.nanaBank.gatewayserver.filters;
 
- import org.slf4j.Logger;
+ import java.util.UUID;
+
+import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -43,7 +45,7 @@
      }
 
      private String generateCorrelationId() {
-         return java.util.UUID.randomUUID().toString();
+         return UUID.randomUUID().toString();
      }
 
  }

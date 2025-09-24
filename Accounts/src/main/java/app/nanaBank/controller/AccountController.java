@@ -22,6 +22,7 @@ import app.nanaBank.dto.CustomerDTO;
 import app.nanaBank.responsedto.ErrorResponseDTO;
 import app.nanaBank.responsedto.ResponseDTPO;
 import app.nanaBank.services.IAccountService;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -203,11 +204,17 @@ public class AccountController {
 			))
     	    )
     })
+    @Retry(name = "getBuildInfo", fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
     public ResponseEntity<String>getBuildInfo(){
 	return ResponseEntity.status(HttpStatus.OK)
 		.body(buildVersion);
     }
+    // fall back method in case of failure of the original getBuildInfo method
+    public ResponseEntity<String>getBuildInfoFallback(){
+    	return ResponseEntity.status(HttpStatus.OK)
+    		.body("0.9");
+        }
     
     @Operation(
 	    summary = "Get Java version", 
