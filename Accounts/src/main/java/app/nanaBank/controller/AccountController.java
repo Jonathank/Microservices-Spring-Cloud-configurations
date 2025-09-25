@@ -22,6 +22,7 @@ import app.nanaBank.dto.CustomerDTO;
 import app.nanaBank.responsedto.ErrorResponseDTO;
 import app.nanaBank.responsedto.ResponseDTPO;
 import app.nanaBank.services.IAccountService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -211,7 +212,7 @@ public class AccountController {
 		.body(buildVersion);
     }
     // fall back method in case of failure of the original getBuildInfo method
-    public ResponseEntity<String>getBuildInfoFallback(){
+    public ResponseEntity<String>getBuildInfoFallback(Throwable throwable){
     	return ResponseEntity.status(HttpStatus.OK)
     		.body("0.9");
         }
@@ -236,11 +237,18 @@ public class AccountController {
 			))
     	    )
     })
+    // rate limit
+    @RateLimiter(name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/java-version")
     public ResponseEntity<String>getJavaVersion(){
 	return ResponseEntity.status(HttpStatus.OK)
 		.body(environment.getProperty("JAVA_HOME"));
     }
+    
+    public ResponseEntity<String>getJavaVersionFallback(Throwable throwable){
+    	return ResponseEntity.status(HttpStatus.OK)
+    		.body("Java 17");
+        }
     
     @Operation(
 	    summary = "Get Contact Information", 
