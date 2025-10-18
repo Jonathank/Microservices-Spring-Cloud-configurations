@@ -17,7 +17,7 @@ spring:
 #configurations for request connection and response timeout #Globa
      httpclient:
       connect-timeout: 1000
-      response-timeout: 2s
+      response-timeout: 10s
 #redis config
   data:
    redis:
@@ -25,6 +25,12 @@ spring:
     host: localhost
     port: 6379
     timeout: 1s
+  #downloads public certificates from keycloak to validate tokens
+  security:
+     oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
 
 management:
  endpoints:
